@@ -1,0 +1,43 @@
+.all-links {
+  display: flex;
+  justify-content: space-between;
+}
+.center-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.left-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.right-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.center-link {
+  margin: 10px;
+  text-decoration: none;
+  color: white;
+}
+.right-link {
+  margin: 10px;
+  text-decoration: none;
+  color: white;
+}
+.left-link {
+  margin-left: 15px;
+  text-decoration: none;
+  color: white;
+}
+.center-link:hover {
+  color: blueviolet;
+}
+.left-link:hover {
+  color: blueviolet;
+}
+.right-link:hover {
+  color: blueviolet;
+}
