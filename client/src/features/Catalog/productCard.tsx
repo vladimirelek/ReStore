@@ -13,18 +13,21 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import agent from "../../app/api/agent";
 import { LoadingButton } from "@mui/lab";
-import { useStoreContext } from "../../app/StoreContext/store-context";
+
+import { useAppDispatch, useAppSelector } from "../../app/store/store";
+import { addBasketItemAsync, setBasket } from "../Basket/basketSlice";
 
 interface Props {
   product: Product;
 }
 const ProductCard = ({ product }: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const { setBasket } = useStoreContext();
+  const dispatch = useAppDispatch();
+  const { status } = useAppSelector((state) => state.basket);
   function handleAddItems(productId: number, quantity = 1) {
     setLoading(true);
     agent.Basket.addItem(productId, quantity)
-      .then((item) => setBasket(item))
+      .then((item) => dispatch(setBasket(item)))
       .catch((error) => console.log(error))
       .finally(() => setLoading(false));
   }
@@ -60,8 +63,10 @@ const ProductCard = ({ product }: Props) => {
       </CardContent>
       <CardActions>
         <LoadingButton
-          loading={loading}
-          onClick={() => handleAddItems(product.id)}
+          loading={status.includes("pendingItem" + product.id)}
+          onClick={() =>
+            dispatch(addBasketItemAsync({ productId: product.id }))
+          }
           size="small"
         >
           Add to cart

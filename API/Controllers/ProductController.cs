@@ -19,7 +19,9 @@ namespace API.Controllers
         }
         [HttpGet]
         public async Task<ActionResult<List<Product>>> GetAllProducts(){
-            return await _context.Products.ToListAsync();
+            var products=await _context.Products.ToListAsync();
+            if (products==null) return NotFound();
+            return products;
             
         }
         [HttpGet("{Id}")]

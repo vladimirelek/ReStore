@@ -1,30 +1,23 @@
-import {
-  Avatar,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  ThemeProvider,
-  createTheme,
-} from "@mui/material";
-import { Product } from "../../app/models/product";
 import ProductList from "./productList";
 
-import { useState, useEffect } from "react";
-import agent from "../../app/api/agent";
+import { useEffect } from "react";
+
 import Loading from "../../app/layout/Loading";
+import { asyncFetchProducts, productSelectors } from "./catalogSlice";
+import { useAppDispatch, useAppSelector } from "../../app/store/store";
+import ServerError from "../../app/errors/ServerError";
 
 const Catalog = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-
+  const dispatch = useAppDispatch();
+  const products = useAppSelector(productSelectors.selectAll);
+  const { productsLoaded, status } = useAppSelector((state) => state.catalog);
   useEffect(() => {
-    agent.Catalog.list()
-      .then((products) => setProducts(products))
-      .catch((error) => console.log(error))
-      .finally(() => setLoading(false));
-  }, []);
-  if (loading) return <Loading message="Loading products" />;
+    if (!productsLoaded) {
+      dispatch(asyncFetchProducts);
+    }
+  }, [productsLoaded, dispatch]);
+  if (status.includes("pending")) return <Loading message="Loading products" />;
+  if (!productsLoaded) return <ServerError />;
   return (
     <>
       <ProductList products={products} />

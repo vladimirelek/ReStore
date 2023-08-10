@@ -2,13 +2,13 @@ import { AppBar, Badge, IconButton, Switch } from "@mui/material";
 import { Link } from "react-router-dom";
 import "./header.css";
 import { ShoppingCart } from "@mui/icons-material";
-import { useStoreContext } from "../../StoreContext/store-context";
+import { useAppSelector } from "../../store/store";
 interface Props {
   darkMode: boolean;
   switchTheme: () => void;
 }
 const Header = ({ darkMode, switchTheme }: Props) => {
-  const { basket } = useStoreContext();
+  const { basket } = useAppSelector((state) => state.basket);
   const iconQuantity = basket?.items.reduce(
     (sum, item) => sum + item.quantity,
     0

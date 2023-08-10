@@ -7,16 +7,18 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./app/Router/router";
-import { StoreProvider } from "./app/StoreContext/store-context";
-
+import { store } from "./app/store/store";
+import { Provider } from "react-redux";
+import { asyncFetchProducts } from "./features/Catalog/catalogSlice";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+store.dispatch(asyncFetchProducts());
 root.render(
   <React.StrictMode>
-    <StoreProvider>
+    <Provider store={store}>
       <RouterProvider router={router} />
-    </StoreProvider>
+    </Provider>
   </React.StrictMode>
 );
 

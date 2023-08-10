@@ -11,24 +11,25 @@ import {
 import Header from "./Header/Header";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useStoreContext } from "../StoreContext/store-context";
 import { getCookie } from "../util/util";
 import Loading from "./Loading";
+import { useAppDispatch } from "../store/store";
+import { setBasket } from "../../features/Basket/basketSlice";
 
 function App() {
-  const { setBasket } = useStoreContext();
+  const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const cookie = getCookie("buyerId");
     if (cookie) {
       agent.Basket.getBasket()
-        .then((item) => setBasket(item))
+        .then((item) => dispatch(setBasket(item)))
         .catch((error) => console.log(error))
         .finally(() => setLoading(false));
     } else {
       setLoading(false);
     }
-  }, [setBasket]);
+  }, [dispatch]);
   const [darkMode, setDarkMode] = useState(false);
   const switchTheme: () => void = () => {
     setDarkMode(!darkMode);

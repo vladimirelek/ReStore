@@ -29,7 +29,7 @@ namespace API.Controllers
             var basket=await RetrieveBasket();
             if (basket==null) basket=CreateBasket();
             var product=_context.Products.FirstOrDefault(i=>i.Id==productId);
-            if (product==null) return NotFound();
+            if (product == null) return BadRequest(new ProblemDetails { Title = "Product not found" });
             basket.addItem(product,quantity);
             var result=await _context.SaveChangesAsync()>0;
             if (result) return CreatedAtRoute("GetBasket",MapBasketToDTO(basket));
