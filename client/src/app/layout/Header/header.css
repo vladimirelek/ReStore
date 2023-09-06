@@ -14,6 +14,7 @@
 }
 .right-links {
   display: flex;
+
   justify-content: center;
   align-items: center;
 }
@@ -40,4 +41,13 @@
 }
 .right-link:hover {
   color: blueviolet;
+}
+.right-link-auth {
+  margin: 10px;
+  text-decoration: none;
+  color: white;
+}
+.right-link-auth:hover {
+  color: blueviolet;
+  text-decoration: none;
 }

@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import "./header.css";
 import { ShoppingCart } from "@mui/icons-material";
 import { useAppSelector } from "../../store/store";
+import SignedInMenu from "../SignedInMenu";
 interface Props {
   darkMode: boolean;
   switchTheme: () => void;
 }
 const Header = ({ darkMode, switchTheme }: Props) => {
+  const { user } = useAppSelector((state) => state.account);
   const { basket } = useAppSelector((state) => state.basket);
   const iconQuantity = basket?.items.reduce(
     (sum, item) => sum + item.quantity,
@@ -51,12 +53,18 @@ const Header = ({ darkMode, switchTheme }: Props) => {
               </Badge>
             </IconButton>
           </Link>
-          <Link className="right-link" to={"/about"}>
-            LOGIN
-          </Link>
-          <Link className="right-link" to={"/about"}>
-            REGISTER
-          </Link>
+          {user ? (
+            <SignedInMenu />
+          ) : (
+            <>
+              <Link className="right-link-auth" to={"/login"}>
+                LOGIN
+              </Link>
+              <Link className="right-link-auth" to={"/register"}>
+                REGISTER
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </AppBar>

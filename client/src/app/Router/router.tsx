@@ -8,12 +8,24 @@ import ContactPage from "../../features/contact/ContactPage";
 import ServerError from "../errors/ServerError";
 import BasketPage from "../../features/Basket/basket";
 import Checkout from "../../features/CheckoutPage/checkout";
+import Login from "../../features/Account/Login";
+import Register from "../../features/Account/Register";
+import RequireAuth from "./RequireAuth";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
+      {
+        element: <RequireAuth />,
+        children: [
+          {
+            path: "checkout",
+            element: <Checkout />,
+          },
+        ],
+      },
       {
         path: "/",
         element: <HomePage />,
@@ -42,9 +54,14 @@ export const router = createBrowserRouter([
         path: "basket",
         element: <BasketPage />,
       },
+
       {
-        path: "checkout",
-        element: <Checkout />,
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "register",
+        element: <Register />,
       },
     ],
   },

@@ -1,0 +1,4 @@
+{
+  "dotnet.defaultSolution": "FullStack.sln",
+  "C_Cpp.errorSquiggles": "enabled"
+}
