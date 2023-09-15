@@ -7,10 +7,12 @@ import AboutPage from "../../features/about/AboutPage";
 import ContactPage from "../../features/contact/ContactPage";
 import ServerError from "../errors/ServerError";
 import BasketPage from "../../features/Basket/basket";
-import Checkout from "../../features/CheckoutPage/checkout";
+
 import Login from "../../features/Account/Login";
 import Register from "../../features/Account/Register";
 import RequireAuth from "./RequireAuth";
+import CheckoutPage from "../../features/checkout/CheckoutPage";
+import Orders from "../../features/orders/Orders";
 
 export const router = createBrowserRouter([
   {
@@ -22,7 +24,11 @@ export const router = createBrowserRouter([
         children: [
           {
             path: "checkout",
-            element: <Checkout />,
+            element: <CheckoutPage />,
+          },
+          {
+            path: "orders",
+            element: <Orders />,
           },
         ],
       },

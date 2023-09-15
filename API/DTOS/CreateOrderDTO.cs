@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Entities.OrderAggregate;
-using Microsoft.AspNetCore.Identity;
 
-namespace API.Entities
+namespace API.DTOS
 {
-    public class User:IdentityUser<int>
+    public class CreateOrderDTO
     {
-        public UserAdress Adress { get; set; }
+        public bool SaveAdress {get;set;}
+        public ShippingAdress ShippingAdress{get;set;}
     }
 }
