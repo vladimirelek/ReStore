@@ -83,12 +83,16 @@ const Account = {
   login: (values: any) => request.post("Account/login", values),
   register: (values: any) => request.post("Account/register", values),
   currentAccount: () => request.get("Account/currentUser"),
+  fetchAddress: () => request.get("account/savedAdress"),
 };
 const Orders = {
   list: () => request.get("orders"),
   fetch: (id: number) => request.get(`orders/${id}`),
-  create: (values: any) => request.post("orders", values),
+  create: (values: any) => request.post("Orders", values),
   fetchAdress: () => request.get("account/savedAdress"),
+};
+const Payments = {
+  createPaymentIntent: () => request.post("payments", {}),
 };
 const agent = {
   Catalog,
@@ -96,5 +100,6 @@ const agent = {
   Basket,
   Account,
   Orders,
+  Payments,
 };
 export default agent;
